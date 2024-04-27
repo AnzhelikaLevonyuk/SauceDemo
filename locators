@@ -1,0 +1,88 @@
+•id
+#password
+//*[@id = "password"]
+driver.findElements(By.id("password"));
+-----------------------
+• name
+[name = user-name]
+//*[@name = "user-name"]
+driver.findElements(By.name("user-name"));
+-----------------------
+• classname
+.select_container
+//*[@class = "select-container"]
+driver.findElements(By.classname("select-container"));
+
+• tagname
+driver.findElements(By.tagName("h3"));
+
+• linktext
+driver.findElements(By.linkText("All Items"));
+
+• partiallinktext
+driver.findElements(By.partiallinktext("item-4"));
+-----------------------------------------
+• xpath
+- Поиск по атрибуту
+ By.xpath(//button[@id = "remove-sauce-labs-backpack"])
+
+-Поиск по тексту,
+By.xpath("//div[text() = 'Sauce Labs Onesie']");
+
+- Поиск по частичному совпадению атрибута,
+By.xpath("//tag[contains(@attribute,'text')]");
+
+- Поиск по частичному совпадению текста, например
+By.xpath(//div[contains(text(), 'A red light')]);
+
+-ancestor
+ //option[text()='Price (low to high)']//ancestor::span
+
+- descendant
+//span/descendant::select
+
+- following
+//div[@class = "inventory_details_desc large_size"]/following::footer
+
+- parent
+//div[@class = "inventory_details_desc large_size"]/parent::div
+
+- preceding
+//div[@class = "cart_footer"]/preceding::div[@class = "bm-menu"]
+
+- поиск элемента с условием AND
+//button[text()= "Remove" and @id = "remove-sauce-labs-backpack"]
+------------------------------------------------------
+• css
+- .class
+.inventory_item_price
+
+-.class1.class2
+.btn.cart_button
+
+- #id
+#first-name
+
+- tagname
+span
+
+- tagname.class
+span.active_option
+
+- [attribute=value]
+[data-test= "social-twitter"]
+
+- [attribute~=value]
+[alt~= "Backpack"]
+
+- [attribute|=value]
+[name|= continue]
+
+- [attribute^=value]
+[name^= check]
+
+- [attribute$=value]
+[data-test$= desc]
+
+- [attribute*=value]
+[src*= ".0a0b85a3"]
