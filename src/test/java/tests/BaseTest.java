@@ -13,7 +13,6 @@ public abstract class BaseTest {
     protected LoginPage loginPage;
     protected ProductsPage productsPage;
     protected InfoAboutProductPage infoAboutProductPage;
-    protected CommonElementsOfAllPages commonElementsOfAllPages;
     protected CartPage cartPage;
     protected CheckoutPage checkoutPage;
     protected OverviewPage overviewPage;
@@ -28,7 +27,6 @@ public abstract class BaseTest {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         infoAboutProductPage = new InfoAboutProductPage(driver);
-        commonElementsOfAllPages = new CommonElementsOfAllPages(driver);
         cartPage = new CartPage(driver);
         checkoutPage = new CheckoutPage(driver);
         overviewPage = new OverviewPage(driver);

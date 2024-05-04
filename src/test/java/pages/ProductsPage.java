@@ -5,12 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductsPage extends BasePage {
 
     private final static String ITEM_CONTAINER = "//div[text()='%s']/ancestor::div[@class = 'inventory_item']";
     private static final By ADD_TO_CART_BUTTON = By.cssSelector("button[id^=add-to-cart]");
     private static final By REMOVE_FROM_CART_BUTTON = By.cssSelector("button[id^=remove-sauce]");
-
     private static final By ITEM_PRICE = By.className("inventory_item_price");
     private static final By ITEM_NAME = By.className("inventory_item_name");
     private static final By ITEM_DESCRIPTION = By.className("inventory_item_desc");
@@ -60,6 +62,15 @@ public class ProductsPage extends BasePage {
         Select select = new Select(driver.findElement(FILTER));
         select.selectByVisibleText(optionText);
         return driver.findElement(ACTIVE_OPTION).getText();
+    }
+
+    public List<String> getPrice() {
+        List<WebElement> actualItems = driver.findElements(ITEM_PRICE);
+        List<String> result = new ArrayList<>();
+        for (WebElement e : actualItems) {
+            result.add(e.getText());
+        }
+        return result;
     }
 
     public void clickNameProduct(String productName) {

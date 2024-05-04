@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.List;
-
 public class CartPage extends BasePage {
     private final static String ITEM_CONTAINER = "//div[text()='%s']/ancestor::div[@class = 'cart_item_label']";
     private final static By PRODUCT_IN_THE_CART = By.className("cart_item");
@@ -39,7 +37,6 @@ public class CartPage extends BasePage {
     }
 
     public Integer getCountProductsInTheCart() {
-        List<WebElement> cart = driver.findElements(PRODUCT_IN_THE_CART);
-        return cart.size();
+        return driver.findElements(PRODUCT_IN_THE_CART).size();
     }
 }

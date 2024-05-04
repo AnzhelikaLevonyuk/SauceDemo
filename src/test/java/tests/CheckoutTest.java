@@ -4,11 +4,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CheckoutTest extends BaseTest {
+    @Test
     public void positiveCheckoutTest() {
 
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Bike Light");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
 
         checkoutPage.setInputFirstName("Anzhelika");
@@ -16,7 +17,7 @@ public class CheckoutTest extends BaseTest {
         checkoutPage.setInputZipCode("123456");
         checkoutPage.clickContinueButton();
 
-        Assert.assertEquals(commonElementsOfAllPages.getTitle(), "Checkout: Overview");
+        Assert.assertEquals(checkoutPage.getTitle(), "Checkout: Overview");
     }
 
     @Test
@@ -24,7 +25,7 @@ public class CheckoutTest extends BaseTest {
 
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Bike Light");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
 
         checkoutPage.setInputFirstName("");
@@ -37,13 +38,13 @@ public class CheckoutTest extends BaseTest {
     }
 
     @Test
-    public void CancelButton() {
+    public void cancelButton() {
 
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Bike Light");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         checkoutPage.clickCancelButton();
-        Assert.assertEquals(commonElementsOfAllPages.getTitle(), "Your Cart");
+        Assert.assertEquals(cartPage.getTitle(), "Your Cart");
     }
 }

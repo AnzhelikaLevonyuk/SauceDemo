@@ -7,7 +7,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void positiveLoginTest() {
         loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(commonElementsOfAllPages.isShoppingCartDisplayed());
+        Assert.assertTrue(productsPage.isShoppingCartDisplayed());
     }
 
     @Test

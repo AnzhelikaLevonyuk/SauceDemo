@@ -10,7 +10,7 @@ public class InfoAboutProductTest extends BaseTest {
         productsPage.clickImageProduct("Sauce Labs Onesie");
         Assert.assertTrue(infoAboutProductPage.isBackButtonDisplayed());
         infoAboutProductPage.clickBackButton();
-        Assert.assertEquals(commonElementsOfAllPages.getTitle(), "Products");
+        Assert.assertEquals(productsPage.getTitle(), "Products");
     }
 
     @Test
@@ -37,11 +37,11 @@ public class InfoAboutProductTest extends BaseTest {
         productsPage.clickImageProduct("Sauce Labs Bike Light");
 
         infoAboutProductPage.clickAddToCartButton();
-        Assert.assertEquals(commonElementsOfAllPages.getNumberOfItemsInTheCart(), "3");
+        Assert.assertEquals(productsPage.getNumberOfItemsInTheCart(), "3");
     }
 
     @Test
-    public void RemoveProductFromCart() {
+    public void removeProductFromCart() {
         loginPage.login("standard_user", "secret_sauce");
 
         productsPage.clickAddToCartButton("Test.allTheThings() T-Shirt (Red)");
@@ -50,6 +50,6 @@ public class InfoAboutProductTest extends BaseTest {
         productsPage.clickImageProduct("Test.allTheThings() T-Shirt (Red)");
 
         infoAboutProductPage.clickRemoveButton();
-        Assert.assertEquals(commonElementsOfAllPages.getNumberOfItemsInTheCart(), "1");
+        Assert.assertEquals(productsPage.getNumberOfItemsInTheCart(), "1");
     }
 }

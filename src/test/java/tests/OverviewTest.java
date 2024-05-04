@@ -9,7 +9,7 @@ public class OverviewTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Backpack");
         productsPage.clickAddToCartButton("Sauce Labs Fleece Jacket");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         checkoutPage.setInputFirstName("Anzhelika");
         checkoutPage.setInputLastName("Levonyuk");
@@ -23,7 +23,7 @@ public class OverviewTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Backpack");
         productsPage.clickAddToCartButton("Sauce Labs Fleece Jacket");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         checkoutPage.setInputFirstName("Anzhelika");
         checkoutPage.setInputLastName("Levonyuk");
@@ -38,21 +38,21 @@ public class OverviewTest extends BaseTest {
     public void checkCancelButton() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Backpack");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         checkoutPage.setInputFirstName("Anzhelika");
         checkoutPage.setInputLastName("Levonyuk");
         checkoutPage.setInputZipCode("123456");
         checkoutPage.clickContinueButton();
         overviewPage.clickCancelButton();
-        Assert.assertEquals(commonElementsOfAllPages.getTitle(), "Products");
+        Assert.assertEquals(productsPage.getTitle(), "Products");
     }
 
     @Test
     public void checkFinishButton() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Backpack");
-        commonElementsOfAllPages.clickShoppingCartLink();
+        productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         checkoutPage.setInputFirstName("Anzhelika");
         checkoutPage.setInputLastName("Levonyuk");
