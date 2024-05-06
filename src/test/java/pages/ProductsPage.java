@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsPage extends BasePage {
@@ -64,9 +63,9 @@ public class ProductsPage extends BasePage {
         return driver.findElement(ACTIVE_OPTION).getText();
     }
 
-    public List<String> getPrice() {
+    public List<String> getProductPrices() {
         List<WebElement> actualItems = driver.findElements(ITEM_PRICE);
-       return actualItems.stream()
+        return actualItems.stream()
                 .map(WebElement::getText)
                 .toList();
     }

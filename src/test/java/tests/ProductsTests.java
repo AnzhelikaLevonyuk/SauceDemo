@@ -59,20 +59,20 @@ public class ProductsTests extends BaseTest {
     }
 
     @Test
-    public void changeSorting_priceLowToHigh() {
+    public void changeSortingPriceLowToHigh() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.applyFilter("Price (low to high)");
         String[] lowToHighPrice = {"$7.99", "$9.99", "$15.99", "$15.99", "$29.99", "$49.99"};
         List<String> expectedItemsOrder = Arrays.asList(lowToHighPrice);
-        Assert.assertEquals(productsPage.getPrice(), expectedItemsOrder);
+        Assert.assertEquals(productsPage.getProductPrices(), expectedItemsOrder);
     }
 
     @Test
-    public void changeSorting_priceHighToLow() {
+    public void changeSortingPriceHighToLow() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.applyFilter("Price (high to low)");
         List<String> expectedItemsOrder = List.of("$49.99", "$29.99", "$15.99", "$15.99", "$9.99", "$7.99");
-        Assert.assertEquals(productsPage.getPrice(), expectedItemsOrder);
+        Assert.assertEquals(productsPage.getProductPrices(), expectedItemsOrder);
     }
 
     @Test
