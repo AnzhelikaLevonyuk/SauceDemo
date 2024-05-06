@@ -66,12 +66,17 @@ public class ProductsPage extends BasePage {
 
     public List<String> getPrice() {
         List<WebElement> actualItems = driver.findElements(ITEM_PRICE);
-        List<String> result = new ArrayList<>();
-        for (WebElement e : actualItems) {
-            result.add(e.getText());
-        }
-        return result;
+       return actualItems.stream()
+                .map(WebElement::getText)
+                .toList();
     }
+
+//        List<String> result = new ArrayList<>();
+//        for (WebElement e : actualItems) {
+//            result.add(e.getText());
+//        }
+//        return result;
+//    }
 
     public void clickNameProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_NAME).click();

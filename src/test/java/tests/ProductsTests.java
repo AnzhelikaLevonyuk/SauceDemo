@@ -71,8 +71,7 @@ public class ProductsTests extends BaseTest {
     public void changeSorting_priceHighToLow() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.applyFilter("Price (high to low)");
-        String[] lowToHighPrice = {"$49.99", "$29.99", "$15.99", "$15.99", "$9.99", "$7.99"};
-        List<String> expectedItemsOrder = Arrays.asList(lowToHighPrice);
+        List<String> expectedItemsOrder = List.of("$49.99", "$29.99", "$15.99", "$15.99", "$9.99", "$7.99");
         Assert.assertEquals(productsPage.getPrice(), expectedItemsOrder);
     }
 
