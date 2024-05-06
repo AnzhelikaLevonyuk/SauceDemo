@@ -71,13 +71,6 @@ public class ProductsPage extends BasePage {
                 .toList();
     }
 
-//        List<String> result = new ArrayList<>();
-//        for (WebElement e : actualItems) {
-//            result.add(e.getText());
-//        }
-//        return result;
-//    }
-
     public void clickNameProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_NAME).click();
     }
