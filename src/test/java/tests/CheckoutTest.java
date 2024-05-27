@@ -17,7 +17,7 @@ public class CheckoutTest extends BaseTest {
         };
     }
 
-    @Test(description = "Positive checkout test", dataProvider = "name for products")
+    @Test(groups = "smoke", description = "Positive checkout test", dataProvider = "name for products")
     public void positiveCheckoutTest(String productName) {
 
         loginPage.login("standard_user", "secret_sauce");
@@ -30,7 +30,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getTitle(), "Checkout: Overview");
     }
 
-    @Test(description = "Negative checkout test", dataProvider = "test data for negative checkout test")
+    @Test(groups = "regression",description = "Negative checkout test", dataProvider = "test data for negative checkout test")
     // как использовать 2 dataProvider в одном методе?
     public void negativeCheckoutTest(String firstName, String lastName, String zipCode, String errorMessage) {
 
@@ -46,7 +46,7 @@ public class CheckoutTest extends BaseTest {
         Assert.assertEquals(checkoutPage.getErrorMessage(), errorMessage);
     }
 
-    @Test(description = "Checking that 'Cancel' button direct the user to the 'Your Cart' pages")
+    @Test(groups = "regression", description = "Checking that 'Cancel' button direct the user to the 'Your Cart' pages")
     public void cancelButton() {
 
         loginPage.login("standard_user", "secret_sauce");

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProductsTests extends BaseTest {
-    @Test(description = "Checking menu items: All displayed and Logout", dataProvider = "name for products")
+    @Test(groups = "smoke",description = "Checking menu items: All displayed and Logout", dataProvider = "name for products")
     public void checkMenu(String productName) {
         loginPage.login("standard_user", "secret_sauce");
         Assert.assertTrue(productsPage.isMenuButtonDisplayed());
@@ -27,7 +27,7 @@ public class ProductsTests extends BaseTest {
     }
 
 
-    @Test(description = "Checking name, description and price product on the Products page and checking the button 'Add to cart'", dataProvider = "data for products")
+    @Test(groups = "regression",description = "Checking name, description and price product on the Products page and checking the button 'Add to cart'", dataProvider = "data for products")
     public void addToCartProductTest(String productName, String productDescription, String productPrice) {
         loginPage.login("standard_user", "secret_sauce");
         Assert.assertEquals(productsPage.getProductPrice(productName), productPrice);
@@ -38,7 +38,7 @@ public class ProductsTests extends BaseTest {
     }
 
 
-    @Test(description = "Checking price sorting: 'low to high' and 'high to low'")
+    @Test(groups = "smoke", description = "Checking price sorting: 'low to high' and 'high to low'")
     public void checkSortingPrice() {
         loginPage.login("standard_user", "secret_sauce");
 
@@ -52,7 +52,7 @@ public class ProductsTests extends BaseTest {
         Assert.assertEquals(productsPage.getProductPrices(), expectedItemsOrder);
     }
 
-    @Test(description = "Open info page using product name and product image", dataProvider = "name for products")
+    @Test(groups = "regression", description = "Open info page using product name and product image", dataProvider = "name for products")
     public void openInfoPage(String productName) {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickNameProduct(productName); //openInfoPageUsingName

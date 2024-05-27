@@ -14,7 +14,7 @@ public class FinishTest extends BaseTest {
         Assert.assertTrue(loginPage.isLoginButtonDisplayed());
     }
 
-    @Test(groups = "userShouldBeLogin", description = "End to end test for order", dataProvider = "name for products")
+    @Test(groups = {"userShouldBeLogin", "smoke"}, description = "End to end test for order", dataProvider = "name for products")
     public void clickBackHomeButton(String productName) {
 
         productsPage.clickAddToCartButton(productName);
