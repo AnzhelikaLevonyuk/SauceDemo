@@ -42,22 +42,15 @@ public class OverviewPage extends BasePage {
     }
 
     public String getTax() {
-        return driver.findElement(TAX).getText();
+        return driver.findElement(TAX).getText().replace("Tax: $", "");
     }
 
     public String getTotal() {
         return driver.findElement(TOTAL).getText();
     }
 
-    public BigDecimal calculateTotalProductsPrice() {
-        List<WebElement> actualItems = driver.findElements(PRODUCT_PRICE);
-        return actualItems.stream().map(e -> e.getText().replace("$", "")).map(BigDecimal::new).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    public BigDecimal calculateTotalPrice() {
-        calculateTotalProductsPrice();
-        BigDecimal tax = BigDecimal.valueOf(Double.valueOf(driver.findElement(TAX).getText().replace("Tax: $", "")));
-        return calculateTotalProductsPrice().add(tax);
+    public List<WebElement> getProductPrice(){
+        return driver.findElements(PRODUCT_PRICE);
     }
 
     public String getItemTotalSum() {

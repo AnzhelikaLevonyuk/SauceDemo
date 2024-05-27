@@ -35,11 +35,11 @@ public class CheckoutTest extends BaseTest {
     public void negativeCheckoutTest(String firstName, String lastName, String zipCode, String errorMessage) {
 
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickAddToCartButton("Sauce Labs Backpack");
+        productsPage.clickAddToCartButton("Sauce Labs Backpack"); // чтобы тут добавить разные продукты
         productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
 
-        checkoutPage.setAllFields(firstName, lastName, zipCode);
+        checkoutPage.setAllFields(firstName, lastName, zipCode); // тут заполнить поля разными данными
         checkoutPage.clickContinueButton();
 
         Assert.assertTrue(checkoutPage.isErrorDisplay());

@@ -17,7 +17,6 @@ public abstract class BaseTest {
     protected OverviewPage overviewPage;
     protected FinishPage finishPage;
 
-
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         driver = new ChromeDriver();
@@ -32,6 +31,10 @@ public abstract class BaseTest {
         finishPage = new FinishPage(driver);
 
         loginPage.open();
+    }
+    @BeforeMethod(onlyForGroups  = "userShouldBeLogin")
+    public void userShouldBeLogIn() {
+        loginPage.login("standard_user", "secret_sauce");
     }
 
     @AfterMethod(alwaysRun = true)
