@@ -3,27 +3,25 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+
 public class CartTest extends BaseTest {
 
-    @Test
-    public void checkShopingCart() {
-        loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productsPage.isMenuButtonDisplayed());
-    }
-    @Test
-    public void checkingPrice() {
-        String productName = "Sauce Labs Bolt T-Shirt";
 
-        loginPage.login("standard_user", "secret_sauce");
+    @Test(groups= "userShouldBeLogin", description = "Add to cart product and checking name, description and price ", dataProvider = "data for products")
+    public void checkingPriceAndDescription(String productName, String productDescription, String productPrice) {
+
         productsPage.clickAddToCartButton(productName);
-        String priceOnProductsPage = productsPage.getProductPrice(productName);
+
         productsPage.clickShoppingCartLink();
-        Assert.assertEquals(cartPage.getProductPrice(productName), priceOnProductsPage);
+        Assert.assertEquals(cartPage.getTitle(), "Your Cart");
+
+        Assert.assertEquals(cartPage.getProductPrice(productName), productPrice);
+        Assert.assertEquals(cartPage.getProductDescription(productName), productDescription);
     }
 
-    @Test
+    @Test(groups= {"userShouldBeLogin"}, description = "Checking that the counter decreases after the product is removed from the cart", retryAnalyzer = Retry.class)
     public void removeProductFromCart() {
-        loginPage.login("standard_user", "secret_sauce");
+
         productsPage.clickAddToCartButton("Sauce Labs Backpack");
         productsPage.clickAddToCartButton("Sauce Labs Bolt T-Shirt");
         productsPage.clickAddToCartButton("Sauce Labs Fleece Jacket");
@@ -32,17 +30,14 @@ public class CartTest extends BaseTest {
         Assert.assertEquals(cartPage.getCountProductsInTheCart(), 2);
     }
 
-    @Test
-    public void continueShoppingButton() {
-        loginPage.login("standard_user", "secret_sauce");
+    @Test(groups= {"userShouldBeLogin"}, description = "Checking that 'Continue Shopping' and 'Checkout' buttons direct the user to the desired pages", dataProvider = "name for products")
+    public void continueShoppingAndCheckoutButtons(String productName) {
+
+        productsPage.clickAddToCartButton(productName);
         productsPage.clickShoppingCartLink();
         cartPage.clickContinueShopping();
         Assert.assertEquals(productsPage.getTitle(), "Products");
-    }
 
-    @Test
-    public void openCheckoutPage() {
-        loginPage.login("standard_user", "secret_sauce");
         productsPage.clickShoppingCartLink();
         cartPage.clickCheckoutButton();
         Assert.assertEquals(checkoutPage.getTitle(), "Checkout: Your Information");

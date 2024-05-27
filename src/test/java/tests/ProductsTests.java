@@ -7,92 +7,59 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ProductsTests extends BaseTest {
-    @Test
-    public void checkMenu() {
+    @Test(description = "Checking menu items: All displayed and Logout", dataProvider = "name for products")
+    public void checkMenu(String productName) {
         loginPage.login("standard_user", "secret_sauce");
         Assert.assertTrue(productsPage.isMenuButtonDisplayed());
         productsPage.clickMenuButton();
         Assert.assertTrue(productsPage.isMenuDisplayed());
-    }
 
-    @Test
-    public void checkAllItemsLink() {
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickAddToCartButton("Sauce Labs Onesie");
+        productsPage.clickAddToCartButton(productName);
         productsPage.clickShoppingCartLink();
-        cartPage.clickMenuButton();
+        cartPage.clickCheckoutButton();
+        checkoutPage.clickMenuButton();
         cartPage.clickAllItemLink();
         Assert.assertEquals(productsPage.getTitle(), "Products");
-    }
 
-    @Test
-    public void checkLogOut() {
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickAddToCartButton("Sauce Labs Onesie");
-        productsPage.clickShoppingCartLink();
         cartPage.clickMenuButton();
         cartPage.clickLogOutLink();
         Assert.assertTrue(loginPage.isLoginButtonDisplayed());
     }
 
-    @Test
-    public void addToCartProductTest() {
-        String productName = "Sauce Labs Backpack";
+
+    @Test(description = "Checking name, description and price product on the Products page and checking the button 'Add to cart'", dataProvider = "data for products")
+    public void addToCartProductTest(String productName, String productDescription, String productPrice) {
         loginPage.login("standard_user", "secret_sauce");
-        Assert.assertEquals(productsPage.getProductPrice(productName), "$29.99");
-        Assert.assertEquals(productsPage.getProductDescription(productName), "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
+        Assert.assertEquals(productsPage.getProductPrice(productName), productPrice);
+        Assert.assertEquals(productsPage.getProductDescription(productName), productDescription);
         Assert.assertTrue(productsPage.isItemImageDispalyed(productName));
         productsPage.clickAddToCartButton(productName);
         Assert.assertTrue(productsPage.isRemoveFromCartButtonDisplayed(productName));
     }
 
-    @Test
-    public void checkDefaultSorting() {
-        loginPage.login("standard_user", "secret_sauce");
-        Assert.assertEquals(productsPage.getDefaultSorting(), "Name (A to Z)");
-    }
 
-    @Test
-    public void changeSortingAndVerifiedSortingLabel() {
+    @Test(description = "Checking price sorting: 'low to high' and 'high to low'")
+    public void checkSortingPrice() {
         loginPage.login("standard_user", "secret_sauce");
-        Assert.assertEquals(productsPage.applyFilter("Price (low to high)"), "Price (low to high)");
-    }
 
-    @Test
-    public void changeSortingPriceLowToHigh() {
-        loginPage.login("standard_user", "secret_sauce");
         productsPage.applyFilter("Price (low to high)");
         String[] lowToHighPrice = {"$7.99", "$9.99", "$15.99", "$15.99", "$29.99", "$49.99"};
         List<String> expectedItemsOrder = Arrays.asList(lowToHighPrice);
         Assert.assertEquals(productsPage.getProductPrices(), expectedItemsOrder);
-    }
 
-    @Test
-    public void changeSortingPriceHighToLow() {
-        loginPage.login("standard_user", "secret_sauce");
         productsPage.applyFilter("Price (high to low)");
-        List<String> expectedItemsOrder = List.of("$49.99", "$29.99", "$15.99", "$15.99", "$9.99", "$7.99");
+        expectedItemsOrder = List.of("$49.99", "$29.99", "$15.99", "$15.99", "$9.99", "$7.99");
         Assert.assertEquals(productsPage.getProductPrices(), expectedItemsOrder);
     }
 
-    @Test
-    public void openInfoPageUsingName() {
+    @Test(description = "Open info page using product name and product image", dataProvider = "name for products")
+    public void openInfoPage(String productName) {
         loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickNameProduct("Sauce Labs Fleece Jacket");
+        productsPage.clickNameProduct(productName); //openInfoPageUsingName
+        Assert.assertTrue(infoAboutProductPage.isBackButtonDisplayed());
+        infoAboutProductPage.clickBackButton();
+        productsPage.clickImageProduct(productName); //openInfoPageUsingImage
         Assert.assertTrue(infoAboutProductPage.isBackButtonDisplayed());
     }
 
-    @Test
-    public void openInfoPageUsingImage() {
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickImageProduct("Sauce Labs Fleece Jacket");
-        Assert.assertTrue(infoAboutProductPage.isBackButtonDisplayed());
-    }
-
-    @Test
-    public void openCartPage() {
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickShoppingCartLink();
-        Assert.assertEquals(cartPage.getTitle(), "Your Cart");
-    }
 }

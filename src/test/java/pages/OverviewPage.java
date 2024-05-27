@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OverviewPage extends BasePage {
@@ -41,10 +42,24 @@ public class OverviewPage extends BasePage {
     }
 
     public String getTax() {
-        return driver.findElement(TAX).getText();
+        return driver.findElement(TAX).getText().replace("Tax: $", "");
     }
 
     public String getTotal() {
         return driver.findElement(TOTAL).getText();
     }
+
+    public List<WebElement> getProductPrice(){
+        return driver.findElements(PRODUCT_PRICE);
+    }
+
+    public String getItemTotalSum() {
+        return driver.findElement(ITEM_TOTAL).getText().replace("Item total: $", "");
+    }
+
+    public String getTotalSum() {
+        return driver.findElement(TOTAL).getText().replace("Total: $", "");
+    }
+
+
 }
