@@ -15,15 +15,10 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
-    public void setInputFirstName(String firstName) {
+
+    public void setAllFields(String firstName, String lastName, String zipCode) {
         driver.findElement(INPUT_FIRST_NAME).sendKeys(firstName);
-    }
-
-    public void setInputLastName(String lastName) {
         driver.findElement(INPUT_LAST_NAME).sendKeys(lastName);
-    }
-
-    public void setInputZipCode(String zipCode) {
         driver.findElement(INPUT_ZIP_CODE).sendKeys(zipCode);
     }
 

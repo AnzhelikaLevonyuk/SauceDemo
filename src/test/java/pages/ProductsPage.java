@@ -11,7 +11,7 @@ public class ProductsPage extends BasePage {
 
     private final static String ITEM_CONTAINER = "//div[text()='%s']/ancestor::div[@class = 'inventory_item']";
     private static final By ADD_TO_CART_BUTTON = By.cssSelector("button[id^=add-to-cart]");
-    private static final By REMOVE_FROM_CART_BUTTON = By.cssSelector("button[id^=remove-sauce]");
+    private static final By REMOVE_FROM_CART_BUTTON = By.cssSelector("button[id^=remove]");
     private static final By ITEM_PRICE = By.className("inventory_item_price");
     private static final By ITEM_NAME = By.className("inventory_item_name");
     private static final By ITEM_DESCRIPTION = By.className("inventory_item_desc");
