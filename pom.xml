@@ -32,7 +32,7 @@
                 <suiteXmlFiles>
                     <suiteXmlFile>src/test/resources/suits/regression.xml</suiteXmlFile>
                     <suiteXmlFile>src/test/resources/suits/suite.xml</suiteXmlFile>
-                    <suiteXmlFile>src/test/resources/suits/{suiteName}.xml</suiteXmlFile>
+                    <suiteXmlFile>src/test/resources/suits/smoke.xml</suiteXmlFile>
                 </suiteXmlFiles>
             </configuration>
         </plugin>
@@ -43,7 +43,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <suiteName>suit</suiteName>
     </properties>
 
 </project>
