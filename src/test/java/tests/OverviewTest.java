@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import java.math.BigDecimal;
 
 public class OverviewTest extends BaseTest {
-    @Test(description = "Checking count of products, Item total, Total sum and that Cancel button redirected user to the Products page")
+    @Test(groups = "smoke", description = "Checking count of products, Item total, Total sum and that Cancel button redirected user to the Products page")
     public void checkOverviewPage() {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.clickAddToCartButton("Sauce Labs Backpack");

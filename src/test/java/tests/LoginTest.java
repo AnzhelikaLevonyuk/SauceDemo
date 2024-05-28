@@ -18,13 +18,13 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(description = "Positive login test")
+    @Test(groups = "smoke",description = "Positive login test")
     public void positiveLoginTest() {
         loginPage.login("standard_user", "secret_sauce");
         Assert.assertTrue(productsPage.isShoppingCartDisplayed());
     }
 
-    @Test(description = "Negative login test", dataProvider = "test data for negative login")
+    @Test(groups = "regression",description = "Negative login test", dataProvider = "test data for negative login")
     public void negativeLoginTest(String email, String password, String expectedErrorMessage) {
         loginPage.login(email, password);
         Assert.assertTrue(loginPage.isErrorMessageDisplayed());
