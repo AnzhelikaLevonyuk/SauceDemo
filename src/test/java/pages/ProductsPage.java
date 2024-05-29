@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,18 +25,22 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
+    @Step("Get product name for this {productName} product on the Main page")
     private WebElement getProductCardByName(String productName) {
         return driver.findElement(By.xpath(String.format(ITEM_CONTAINER, productName)));
     }
 
+    @Step("Get product description for this {productName} product on the Main page")
     public String getProductDescription(String productName) {
         return this.getProductCardByName(productName).findElement(ITEM_DESCRIPTION).getText();
     }
 
+    @Step("Get product price for this {productName} product on the Main page")
     public String getProductPrice(String productName) {
         return this.getProductCardByName(productName).findElement(ITEM_PRICE).getText();
     }
 
+    @Step("Click 'Add to cart' button on the Main page")
     public void clickAddToCartButton(String productName) {
         this.getProductCardByName(productName).findElement(ADD_TO_CART_BUTTON).click();
     }
@@ -44,6 +49,7 @@ public class ProductsPage extends BasePage {
         return this.getProductCardByName(productName).findElement(REMOVE_FROM_CART_BUTTON).isDisplayed();
     }
 
+    @Step("Click 'Remove' button on the Main page")
     public void clickRemoveFromCartButton(String productName) {
         this.getProductCardByName(productName).findElement(REMOVE_FROM_CART_BUTTON).click();
     }
@@ -57,12 +63,14 @@ public class ProductsPage extends BasePage {
         return select.getFirstSelectedOption().getText();
     }
 
+    @Step("Apply {optionText} filter")
     public String applyFilter(String optionText) {
         Select select = new Select(driver.findElement(FILTER));
         select.selectByVisibleText(optionText);
         return driver.findElement(ACTIVE_OPTION).getText();
     }
 
+    @Step("Get list with all products")
     public List<String> getProductPrices() {
         List<WebElement> actualItems = driver.findElements(ITEM_PRICE);
         return actualItems.stream()
@@ -70,10 +78,12 @@ public class ProductsPage extends BasePage {
                 .toList();
     }
 
+   @Step("Click product name {productName} to open 'Info' page")
     public void clickNameProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_NAME).click();
     }
 
+    @Step("Click on the image in {productName} to open 'Info' page")
     public void clickImageProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_IMG).click();
     }
