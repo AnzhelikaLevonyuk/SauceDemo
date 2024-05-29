@@ -1,13 +1,13 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
+import utils.DriverFactory;
+import utils.InvokedListener;
 
-import java.time.Duration;
-
+@Listeners({InvokedListener.class})
 public abstract class BaseTest {
     protected WebDriver driver;
     protected LoginPage loginPage;
@@ -20,15 +20,11 @@ public abstract class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     @Parameters("browserName")
-    public void setUp(@Optional("chrome") String browser) {
-        if (browser.equals("chrome")){
-            driver = new ChromeDriver();
-        } else if (browser.equals("safari"))
-        {
-            driver = new SafariDriver();
-        }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    public void setUp(@Optional("chrome") String browser, ITestContext testContext) throws Exception {
+        driver = DriverFactory.getDriver(browser);
+
+        testContext.setAttribute("driver", driver);
+
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         infoAboutProductPage = new InfoAboutProductPage(driver);
@@ -39,14 +35,15 @@ public abstract class BaseTest {
 
         loginPage.open();
     }
-    @BeforeMethod(onlyForGroups  = "userShouldBeLogin", alwaysRun = true)
+
+    @BeforeMethod(onlyForGroups = "userShouldBeLogin", alwaysRun = true)
     public void userShouldBeLogIn() {
         loginPage.login("standard_user", "secret_sauce");
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-         driver.quit();
+        driver.quit();
     }
 
     @DataProvider(name = "name for products")

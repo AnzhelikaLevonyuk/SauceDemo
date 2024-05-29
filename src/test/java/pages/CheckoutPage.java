@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,16 +17,19 @@ public class CheckoutPage extends BasePage {
     }
 
 
+    @Step("Fill user info: {firstName}, {lastName}, {zipCode}")
     public void setAllFields(String firstName, String lastName, String zipCode) {
         driver.findElement(INPUT_FIRST_NAME).sendKeys(firstName);
         driver.findElement(INPUT_LAST_NAME).sendKeys(lastName);
         driver.findElement(INPUT_ZIP_CODE).sendKeys(zipCode);
     }
 
+    @Step("Click 'Cancel' button on the 'Checkout' page")
     public void clickCancelButton() {
         driver.findElement(CANCEL_BUTTON).click();
     }
 
+    @Step("Click 'Continue' button on the 'Checkout' page")
     public void clickContinueButton() {
         driver.findElement(CONTINUE_BUTTON).click();
     }

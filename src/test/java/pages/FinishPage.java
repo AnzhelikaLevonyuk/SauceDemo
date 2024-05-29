@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -30,6 +31,7 @@ public class FinishPage extends BasePage {
         return driver.findElement(BACK_HOME_BUTTON).isDisplayed();
     }
 
+    @Step("Click 'Back home' button on the last page")
     public void clickBackHomeButton() {
         driver.findElement(BACK_HOME_BUTTON).click();
     }
