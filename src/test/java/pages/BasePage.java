@@ -2,75 +2,100 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public abstract class BasePage {
     protected WebDriver driver;
-    private static final By TITLE_PRODUCTS_PAGE = By.className("title");
-    private static final By SHOPPING_CART = By.className("shopping_cart_link");
-    private static final By NUMBER_OF_ITEMS_IN_THE_CART = By.className("shopping_cart_badge");
-    private static final By MENU_BUTTON = By.id("react-burger-menu-btn");
-    private static final By ALL_ITEM_LINK = By.id("inventory_sidebar_link");
-    private static final By ABOUT_LINK = By.id("about_sidebar_link");
-    private static final By LOG_OUT_LINK = By.id("logout_sidebar_link");
-    private static final By RESET_APP_STATE = By.id("reset_sidebar_link");
-    private static final By X_BUTTON = By.id("react-burger-cross-btn");
-    private static final By MENU = By.className("bm-menu");
-    private static final By FOOTER = By.className("footer");
+
+    @FindBy(className = "title")
+    private WebElement titleProductsPage;
+    @FindBy(className = "shopping_cart_link")
+    private WebElement shoppingCart;
+    @FindBy(className = "shopping_cart_badge")
+    private WebElement numberOfItemInTheCart;
+    @FindBy(id = "react-burger-menu-btn")
+    private WebElement menuButton;
+    @FindBy(id = "inventory_sidebar_link")
+    private WebElement allItemLink;
+    @FindBy(id = "about_sidebar_link")
+    private WebElement aboutLink;
+    @FindBy(id = "logout_sidebar_link")
+    private WebElement logOutLink;
+    @FindBy(id = "reset_sidebar_link")
+    private WebElement resetAppState;
+    @FindBy(id = "react-burger-cross-btn")
+    private WebElement xButton;
+    @FindBy(className = "bm-menu")
+    private WebElement menu;
+    @FindBy(className = "footer")
+    private WebElement footer;
 
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     public String getTitle() {
-        return driver.findElement(TITLE_PRODUCTS_PAGE).getText();
+        return titleProductsPage.getText();
     }
 
     public boolean isShoppingCartDisplayed() {
-        return driver.findElement(SHOPPING_CART).isDisplayed();
+        return shoppingCart.isDisplayed();
     }
 
-    public void clickShoppingCartLink() {
-        driver.findElement(SHOPPING_CART).click();
+    public CartPage clickShoppingCartLink() {
+        shoppingCart.click();
+        return new CartPage(driver);
     }
 
     public String getNumberOfItemsInTheCart() {
-        return driver.findElement(NUMBER_OF_ITEMS_IN_THE_CART).getText();
+        return numberOfItemInTheCart.getText();
     }
 
     public boolean isMenuButtonDisplayed() {
-        return driver.findElement(MENU_BUTTON).isDisplayed();
+        return menuButton.isDisplayed();
     }
 
     public boolean isMenuDisplayed() {
-        return driver.findElement(MENU).isDisplayed();
+        return menu.isDisplayed();
     }
 
     public boolean isFooterDisplayed() {
-        return driver.findElement(FOOTER).isDisplayed();
+        return footer.isDisplayed();
     }
 
-    public void clickMenuButton() {
-        driver.findElement(MENU_BUTTON).click();
+    public BasePage clickMenuButton() {
+        menuButton.click();
+        return this;
     }
 
-    public void clickAllItemLink() {
-        driver.findElement(ALL_ITEM_LINK).click();
+    public BasePage clickAllItemLink() {
+        allItemLink.click();
+        return this;
     }
 
-    public void clickLogOutLink() {
-        driver.findElement(LOG_OUT_LINK).click();
+    public LoginPage clickLogOutLink() {
+        logOutLink.click();
+        return new LoginPage(driver);
     }
 
-    public void clickAboutLink() {
-        driver.findElement(ABOUT_LINK).click();
+    public BasePage clickAboutLink() {
+        aboutLink.click();
+        return this;
     }
 
-    public void clickResetAppStateLink() {
-        driver.findElement(RESET_APP_STATE).click();
+    public BasePage clickResetAppStateLink() {
+        resetAppState.click();
+        return this;
     }
 
-    public void clickCloseMenuButton() {
-        driver.findElement(X_BUTTON).click();
+    public BasePage clickCloseMenuButton() {
+        xButton.click();
+        return this;
     }
 }

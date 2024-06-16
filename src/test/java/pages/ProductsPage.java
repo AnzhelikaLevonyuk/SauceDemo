@@ -41,8 +41,9 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Click 'Add to cart' button on the Main page")
-    public void clickAddToCartButton(String productName) {
+    public ProductsPage clickAddToCartButton(String productName) {
         this.getProductCardByName(productName).findElement(ADD_TO_CART_BUTTON).click();
+        return this;
     }
 
     public boolean isRemoveFromCartButtonDisplayed(String productName) {
@@ -50,8 +51,9 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Click 'Remove' button on the Main page")
-    public void clickRemoveFromCartButton(String productName) {
+    public ProductsPage clickRemoveFromCartButton(String productName) {
         this.getProductCardByName(productName).findElement(REMOVE_FROM_CART_BUTTON).click();
+        return this;
     }
 
     public boolean isItemImageDispalyed(String productName) {
@@ -79,12 +81,14 @@ public class ProductsPage extends BasePage {
     }
 
    @Step("Click product name {productName} to open 'Info' page")
-    public void clickNameProduct(String productName) {
+    public InfoAboutProductPage clickNameProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_NAME).click();
+        return new InfoAboutProductPage(driver);
     }
 
     @Step("Click on the image in {productName} to open 'Info' page")
-    public void clickImageProduct(String productName) {
+    public InfoAboutProductPage clickImageProduct(String productName) {
         this.getProductCardByName(productName).findElement(ITEM_IMG).click();
+        return new InfoAboutProductPage(driver);
     }
 }

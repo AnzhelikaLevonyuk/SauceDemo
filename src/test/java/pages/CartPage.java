@@ -34,18 +34,21 @@ public class CartPage extends BasePage {
     }
 
     @Step("Click 'Remove' button for '{productName}' product")
-    public void clickRemoveButton(String productName) {
+    public CartPage clickRemoveButton(String productName) {
         this.getProductCardByName(productName).findElement(REMOVE_BUTTON).click();
+        return this;
     }
 
     @Step("Click 'Continue shopping' button")
-    public void clickContinueShopping() {
+    public ProductsPage clickContinueShopping() {
         driver.findElement(CONTINUE_SHOPPING_BUTTON).click();
+        return new ProductsPage(driver);
     }
 
     @Step("Click 'Checkout' button")
-    public void clickCheckoutButton() {
+    public CheckoutPage clickCheckoutButton() {
         driver.findElement(CHECKOUT_BUTTON).click();
+        return new CheckoutPage(driver);
     }
 
     @Step("Get number of products added to the cart")

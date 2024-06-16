@@ -3,16 +3,28 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
-    private static final By EMAIL_INPUT = By.id("user-name");
-    private static final By PASSWORD_INPUT = By.id("password");
-    private static final By LOGIN_BUTTON = By.id("login-button");
-    private static final By ERROR_MESSAGE = By.tagName("h3");
+
+    @FindBy(id = "user-name")
+    private WebElement emailInput;
+
+    @FindBy(id = "password")
+    private WebElement passwordInput;
+
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
+
+    @FindBy(tagName = "h3")
+    private WebElement errorMessage;
 
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public void open() {
@@ -20,21 +32,22 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Fill login form email: '{email}' and password: '{password}'")
-    public void login(String email, String password) {
-        driver.findElement(EMAIL_INPUT).sendKeys(email);
-        driver.findElement(PASSWORD_INPUT).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).click();
+    public LoginPage login(String email, String password) {
+        emailInput.sendKeys(email);
+        passwordInput.sendKeys(password);
+        loginButton.click();
+        return this;
     }
 
     public boolean isErrorMessageDisplayed() {
-        return driver.findElement(ERROR_MESSAGE).isDisplayed();
+        return errorMessage.isDisplayed();
     }
 
     public String getErrorMessageText() {
-        return driver.findElement(ERROR_MESSAGE).getText();
+        return errorMessage.getText();
     }
 
     public boolean isLoginButtonDisplayed() {
-        return driver.findElement(LOGIN_BUTTON).isDisplayed();
+        return loginButton.isDisplayed();
     }
 }
