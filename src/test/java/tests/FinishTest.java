@@ -9,25 +9,30 @@ public class FinishTest extends BaseTest {
 
     @AfterMethod
     public void logOut() {
-        productsPage.clickMenuButton();
-        productsPage.clickLogOutLink();
-        Assert.assertTrue(loginPage.isLoginButtonDisplayed());
+        boolean isLoginButtonDisplayed = productsPage.clickMenuButton()
+                .clickLogOutLink()
+                .isLoginButtonDisplayed();
+        Assert.assertTrue(isLoginButtonDisplayed);
     }
 
     @Test(groups = {"userShouldBeLogin", "smoke"}, description = "End to end test for order", dataProvider = "name for products")
     public void clickBackHomeButton(String productName) {
 
-        productsPage.clickAddToCartButton(productName);
-        productsPage.clickShoppingCartLink();
-        cartPage.clickCheckoutButton();
-        checkoutPage.setAllFields("Anzhelika", "Levonyuk", "123456");
-        checkoutPage.clickContinueButton();
-        overviewPage.clickFinishButton();
-        Assert.assertTrue(finishPage.isBackHomeButtonDisplayed());
+        boolean isBackButtonDisplayed = productsPage.clickAddToCartButton(productName)
+                .clickShoppingCartLink()
+                .clickCheckoutButton()
+                .setAllFields("Anzhelika", "Levonyuk", "123456")
+                .clickContinueButton()
+                .clickFinishButton()
+                .isBackHomeButtonDisplayed();
+
+        Assert.assertTrue(isBackButtonDisplayed);
         Assert.assertTrue(finishPage.isTickIconDisplayed());
         Assert.assertTrue(finishPage.isCompleteHeaderDisplayed());
         Assert.assertTrue(finishPage.isCompleteTextDisplayed());
-        finishPage.clickBackHomeButton();
-        Assert.assertEquals(productsPage.getTitle(), "Products");
+
+        String title = finishPage.clickBackHomeButton()
+                        .getTitle();
+        Assert.assertEquals(title, "Products");
     }
 }

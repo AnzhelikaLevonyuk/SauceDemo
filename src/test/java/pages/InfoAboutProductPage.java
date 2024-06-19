@@ -1,49 +1,59 @@
 package pages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class InfoAboutProductPage extends BasePage {
-    private static final By PRODUCT_NAME = By.className("inventory_details_name");
-    private static final By PRODUCT_IMG = By.className("inventory_details_img");
-    private static final By PRODUCT_DESCRIPTION = By.className("inventory_details_desc");
-    private static final By PRODUCT_PRICE = By.className("inventory_details_price");
-    private static final By ADD_TO_CART_BUTTON = By.id("add-to-cart");
-    private static final By REMOVE_FROM_CART_BUTTON = By.id("remove");
-    private static final By BACK_BUTTON = By.id("back-to-products");
+
+    @FindBy(className = "inventory_details_desc")
+    private WebElement productDescription;
+    @FindBy(className = "inventory_details_price")
+    private WebElement productPrice;
+    @FindBy(id = "add-to-cart")
+    private WebElement addToCartButton;
+    @FindBy(id = "remove")
+    private WebElement removeFromCartButton;
+    @FindBy(id = "back-to-products")
+    private WebElement backButton;
 
 
     public InfoAboutProductPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public boolean isBackButtonDisplayed() {
-        return driver.findElement(BACK_BUTTON).isDisplayed();
+        return backButton.isDisplayed();
     }
 
     @Step("Click 'Back' button on the 'Info about product' page")
-    public void clickBackButton() {
-        driver.findElement(BACK_BUTTON).click();
+    public ProductsPage clickBackButton() {
+        backButton.click();
+        return new ProductsPage(driver);
     }
 
     @Step("Get product description on the 'Info about product' page")
     public String getProductDescription() {
-        return driver.findElement(PRODUCT_DESCRIPTION).getText();
+        return productDescription.getText();
     }
 
     @Step("Get product price on the 'Info about product' page")
     public String getProductPrice() {
-        return driver.findElement(PRODUCT_PRICE).getText();
+        return productPrice.getText();
     }
 
     @Step("Get product description on the 'Info about product' page")
-    public void clickAddToCartButton() {
-        driver.findElement(ADD_TO_CART_BUTTON).click();
+    public InfoAboutProductPage clickAddToCartButton() {
+        addToCartButton.click();
+        return this;
     }
 
     @Step("Click 'Remove' button on the 'Info about product' page")
-    public void clickRemoveButton() {
-        driver.findElement(REMOVE_FROM_CART_BUTTON).click();
+    public InfoAboutProductPage clickRemoveButton() {
+        removeFromCartButton.click();
+        return this;
     }
 }

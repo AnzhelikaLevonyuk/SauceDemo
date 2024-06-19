@@ -17,43 +17,43 @@ public class CheckoutTest extends BaseTest {
         };
     }
 
-    @Test(groups = "smoke", description = "Positive checkout test", dataProvider = "name for products")
+    @Test(groups = {"smoke","userShouldBeLogin"}, description = "Positive checkout test", dataProvider = "name for products")
     public void positiveCheckoutTest(String productName) {
 
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickAddToCartButton(productName);
-        productsPage.clickShoppingCartLink();
-        cartPage.clickCheckoutButton();
-        checkoutPage.setAllFields("Anzhelika", "Levonyuk", "123456");
-        checkoutPage.clickContinueButton();
+        String title = productsPage.clickAddToCartButton(productName)
+                .clickShoppingCartLink()
+                .clickCheckoutButton()
+                .setAllFields("Anzhelika", "Levonyuk", "123456")
+                .clickContinueButton()
+                .getTitle();
 
-        Assert.assertEquals(checkoutPage.getTitle(), "Checkout: Overview");
+        Assert.assertEquals(title, "Checkout: Overview");
     }
 
-    @Test(groups = "regression",description = "Negative checkout test", dataProvider = "test data for negative checkout test")
-    // как использовать 2 dataProvider в одном методе?
+    @Test(groups = {"regression","userShouldBeLogin"},description = "Negative checkout test", dataProvider = "test data for negative checkout test")
     public void negativeCheckoutTest(String firstName, String lastName, String zipCode, String errorMessage) {
 
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickAddToCartButton("Sauce Labs Backpack"); // чтобы тут добавить разные продукты
-        productsPage.clickShoppingCartLink();
-        cartPage.clickCheckoutButton();
+         productsPage.clickAddToCartButton("Sauce Labs Backpack")
+                .clickShoppingCartLink()
+                .clickCheckoutButton()
+                .setAllFields(firstName, lastName, zipCode)
+                .clickContinueButton();
 
-        checkoutPage.setAllFields(firstName, lastName, zipCode); // тут заполнить поля разными данными
-        checkoutPage.clickContinueButton();
+        boolean isErrorDisplay = checkoutPage.isErrorDisplay();
+        Assert.assertTrue(isErrorDisplay);
 
-        Assert.assertTrue(checkoutPage.isErrorDisplay());
-        Assert.assertEquals(checkoutPage.getErrorMessage(), errorMessage);
+        String error = checkoutPage.getErrorMessage();
+        Assert.assertEquals(error, errorMessage);
     }
 
-    @Test(groups = "regression", description = "Checking that 'Cancel' button direct the user to the 'Your Cart' pages")
+    @Test(groups = {"regression","userShouldBeLogin"}, description = "Checking that 'Cancel' button direct the user to the 'Your Cart' pages")
     public void cancelButton() {
 
-        loginPage.login("standard_user", "secret_sauce");
-        productsPage.clickShoppingCartLink();
-        cartPage.clickCheckoutButton();
-        checkoutPage.clickCancelButton();
-        Assert.assertEquals(cartPage.getTitle(), "Your Cart");
+        String title = productsPage.clickShoppingCartLink()
+                .clickCheckoutButton()
+                .clickCancelButton()
+                .getTitle();
+        Assert.assertEquals(title, "Your Cart");
 
     }
 }
