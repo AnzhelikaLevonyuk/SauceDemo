@@ -13,18 +13,21 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+  schedule:
+    - cron: "0 6 * * 2,4" 
+    
   workflow_dispatch:
     inputs:
       browser:
-        type: choice
-        description: Which browser to test
+        description: 'Browser to test'
         required: true
+        default: 'chrome'
+        type: choice
         options:
           - chrome
           - firefox
           - edge
-  schedule:
-    - cron: "0 6 * * 2,4" 
 
 jobs:
 
@@ -43,8 +46,12 @@ jobs:
   
     - name: Run tests
       run: mvn -B clean test 
+
+    - run: |
+          echo "Browser to test: $BROWSER"
       env:
-          BROWSER: ${{ github.event.inputs.browser }}
+          BROWSER: ${{ inputs.browser }}
+          
 
     - name: Generate Allure report
       uses: simple-elf/allure-report-action@master
