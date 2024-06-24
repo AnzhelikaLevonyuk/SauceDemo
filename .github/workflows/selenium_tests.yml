@@ -52,7 +52,7 @@ jobs:
         allure_report: target/allure-report
 
     - name: Publish Artifact with report
-      uses: actions/upload-artifact@2
+      uses: actions/upload-artifact@v2
       with:
         name: Report
         path: targer/allure-report
