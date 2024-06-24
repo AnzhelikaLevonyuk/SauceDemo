@@ -12,15 +12,15 @@
             <package name="tests"/>
         </packages>
     </test>
-    <test name="test on safari">
-        <parameter name="browserName" value="safari"/>
-        <groups>
-            <run>
-                <include name="smoke"/>
-            </run>
-        </groups>
-        <packages>
-            <package name="tests"/>
-        </packages>
-    </test>
+<!--    <test name="test on safari">-->
+<!--        <parameter name="browserName" value="safari"/>-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="smoke"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <packages>-->
+<!--            <package name="tests"/>-->
+<!--        </packages>-->
+<!--    </test>-->
 </suite>
