@@ -19,7 +19,7 @@ on:
         options:
           - chrome
           - firefox
-          - safari
+    
       
 jobs:
 
@@ -41,13 +41,7 @@ jobs:
 
     - uses: browser-actions/setup-firefox@latest
     - run: firefox --version
-    
-    - uses: browser-actions/setup-safari@latest
-    - run: chrome --version
-
-    - uses: browser-actions/setup-firefox@latest
-    - run: safari --version
-  
+      
     - name: Run tests
       run: mvn -B clean test
       
