@@ -24,7 +24,7 @@ jobs:
 
   build:
   
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -35,14 +35,15 @@ jobs:
         distribution: 'temurin'
         cache: maven
     
+      
+    - name: Run tests
+      run: mvn -B clean test -Dbrowser=${{ inputs.browser }}
+      
     - uses: browser-actions/setup-chrome@latest
     - run: chrome --version
 
     - uses: browser-actions/setup-firefox@latest
     - run: firefox --version
-      
-    - name: Run tests
-      run: mvn -B clean test -Dbrowser=${{ inputs.browser }}
 
     - name: Generate Allure report
       uses: simple-elf/allure-report-action@master
