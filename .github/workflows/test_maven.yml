@@ -1,0 +1,59 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+  schedule:
+    - cron: "0 6 * * 2,4" 
+    
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser to test'
+        required: true
+        default: 'chrome'
+        type: choice
+        options:
+          - chrome
+          - firefox
+      
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - uses: browser-actions/setup-chrome@latest
+    - run: chrome --version
+
+    - uses: browser-actions/setup-firefox@latest
+    - run: firefox --version
+      
+    - name: Run tests
+      run: mvn -B clean test -Dbrowser=${{ inputs.browser }}
+
+    - name: Generate Allure report
+      uses: simple-elf/allure-report-action@master
+      if: always()
+      id: allure-report
+      with:
+        allure_results: target/allure-results
+        allure_report: target/allure-report
+
+    - name: Publish Artifact with report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Report
+        path: target/allure-report
