@@ -12,13 +12,15 @@ on:
   workflow_dispatch:
     inputs:
       browser:
-        description: 'Browser to test'
+        description: 'Select browser'
         required: true
         default: 'chrome'
         type: choice
         options:
-          - chrome
-          - firefox
+        - chrome
+        - edge
+        - safari
+        - firefox
       
 jobs:
 
@@ -32,7 +34,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'corretto'
         cache: maven
     
     - uses: browser-actions/setup-chrome@latest
