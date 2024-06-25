@@ -45,13 +45,10 @@ jobs:
         cache: maven
   
     - name: Run tests
-      run: mvn -B clean test 
-
-    - run: |
-          echo "Browser to test: $BROWSER"
-      env:
-          BROWSER: ${{ inputs.browser }}
-          
+      run: mvn -B clean test
+      
+    - name: Select browser
+      run: mvn test -Dbrowser= ${{ inputs.browser }}
 
     - name: Generate Allure report
       uses: simple-elf/allure-report-action@master
