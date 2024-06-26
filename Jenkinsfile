@@ -6,21 +6,24 @@ pipeline {
         maven "m3"
     }
 
+    parameters {
+          gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
+          choice (name: 'BROWSER', choices: ['chrome','firefox','safari'], description: 'Select browser')
+          booleanParam (name: 'IS_HEADLESS', defaultValue: true, description: 'Headless mode')
+        }
+
     stages {
         stage('Run tests') {
             steps {
                 // Get some code from a GitHub repository
-                git branch: "main", url: 'https://github.com/AnzhelikaLevonyuk/SauceDemo.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/AnzhelikaLevonyuk/SauceDemo.git'
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean test"
+                sh "mvn -Dmaven.test.failure.ignore=true -Dbrowser=${params.BROWSER} -Dheadless=${params.IS_HEADLESS} clean test"
 
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
 
             post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
+
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
