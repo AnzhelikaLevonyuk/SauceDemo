@@ -9,7 +9,15 @@ pipeline {
     parameters {
           gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
           choice (name: 'BROWSER', choices: ['chrome','firefox','safari'], description: 'Select browser')
+          choice(name: 'SUITE', choices: ['suites/smoke.xml', 'suites/regression.xml'], description: 'Choose suite to run')
           booleanParam (name: 'IS_HEADLESS', defaultValue: true, description: 'Headless mode')
+        }
+
+    triggers {
+           parameterizedCron('''
+           0 9 * * 1,3,5 %SUITE=smoke.xml;BROWSER=Chrome;
+           0 23 1-31/2 * * %SUITE=regression;BROWSER=firefox;
+           ''')
         }
 
     stages {
