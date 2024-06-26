@@ -26,7 +26,7 @@ pipeline {
                 // Get some code from a GitHub repository
                 git branch: "${params.BRANCH}", url: 'https://github.com/AnzhelikaLevonyuk/SauceDemo.git'
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true -Dbrowser=${params.BROWSER} -Dheadless=${params.IS_HEADLESS} clean test"
+                sh "mvn -Dmaven.test.failure.ignore=true -Dsuite=${params.SUITE} -Dbrowser=${params.BROWSER} -Dheadless=${params.IS_HEADLESS} clean test"
 
             }
 
