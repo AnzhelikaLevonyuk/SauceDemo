@@ -24,7 +24,7 @@ jobs:
 
   build:
   
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -45,12 +45,7 @@ jobs:
       run: mvn -B clean test -Dbrowser=${{ inputs.browser }}
 
     - name: Generate Allure report
-      uses: simple-elf/allure-report-action@master
-      if: always()
-      id: allure-report
-      with:
-        allure_results: target/allure-results
-        allure_report: target/allure-report
+      run: mvn allure:report
 
     - name: Publish Artifact with report
       uses: actions/upload-artifact@v2
