@@ -25,11 +25,11 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
             }
-     stages {
-         stage('Run tests') {
+    }
+    stage('Generate allure report') {
             steps {
-                 allure includeProperties: false, report: 'target/allure-report', results: [[path: 'target/allure-results']]
-                }
+            allure includeProperties: false, report: 'target/allure-report', results: [[path: 'target/allure-results']]
             }
+        }
     }
 }
