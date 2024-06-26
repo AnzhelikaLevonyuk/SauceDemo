@@ -7,6 +7,7 @@ import pages.*;
 import utils.DriverFactory;
 import utils.InvokedListener;
 
+
 @Listeners({InvokedListener.class})
 public abstract class BaseTest {
     protected WebDriver driver;
@@ -21,7 +22,8 @@ public abstract class BaseTest {
     @BeforeMethod(alwaysRun = true)
     @Parameters("browserName")
     public void setUp(@Optional("chrome") String browser, ITestContext testContext) throws Exception {
-        driver = DriverFactory.getDriver(browser);
+
+        driver = DriverFactory.getDriver();
 
         testContext.setAttribute("driver", driver);
 
