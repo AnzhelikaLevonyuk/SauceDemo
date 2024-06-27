@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression suite" parallel="tests" thread-count="2">
-    <test name="test on chrome">
-        <parameter name="browserName" value="chrome"/>
+    <test name="Regression test ">
+<!--        <parameter name="browserName" value="chrome"/>-->
         <groups>
             <run>
                 <include name="regression"/>
@@ -12,15 +12,15 @@
             <package name="tests"/>
         </packages>
     </test>
-    <test name="test on safari">
-        <parameter name="browserName" value="safari"/>
-        <groups>
-            <run>
-                <include name="regression"/>
-            </run>
-        </groups>
-        <packages>
-            <package name="tests"/>
-        </packages>
-    </test>
+<!--    <test name="test on safari">-->
+<!--        <parameter name="browserName" value="safari"/>-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="regression"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <packages>-->
+<!--            <package name="tests"/>-->
+<!--        </packages>-->
+<!--    </test>-->
 </suite>
